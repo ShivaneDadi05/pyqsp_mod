@@ -125,33 +125,33 @@ def QuantumSignalProcessingPhases(
     """
 
     # As all inputs are assured to be in the Chebyshev basis, we check whether we have been given a Chebyshev object or an ndarray of coefficients, and cast to Chebyshev object.
-    # if isinstance(poly, np.ndarray) or isinstance(poly, list):
-    #     poly = Chebyshev(poly)
-    # elif isinstance(poly, Chebyshev):
-    #     pass
-    # else:
-    #     raise ValueError(
-    #         f"Must provide Chebyshev coefficient list/array, or Chebyshev polynomial object.")
+    if isinstance(poly, np.ndarray) or isinstance(poly, list):
+        poly = Chebyshev(poly)
+    elif isinstance(poly, Chebyshev):
+        pass
+    else:
+        raise ValueError(
+            f"Must provide Chebyshev coefficient list/array, or Chebyshev polynomial object.")
 
     # Note: as all polynomials are now guaranteed to be in the Chebyshev basis, we bypass the conditional below.
-    if not chebyshev_basis:
-        if isinstance(poly, np.ndarray) or isinstance(poly, list):
-            poly = Polynomial(poly)
-        # For TargetPolynomial class, cast back to parent object.
-        elif isinstance(poly, Polynomial):
-            poly = Polynomial(poly.coef)
-        else:
-            raise ValueError(
-                f"Must provide coefficient list/array, or Polynomial object.")
-    else:
-        if isinstance(poly, np.ndarray) or isinstance(poly, list):
-            poly = Chebyshev(poly)
-        elif isinstance(poly, Chebyshev):
-            # Currently, there should be no sub-class that we have to cast from in this branch.
-            pass
-        else:
-            raise ValueError(
-                f"Must provide Chebyshev coefficient list/array, or Chebyshev polynomial object.")
+    # if not chebyshev_basis:
+    #     if isinstance(poly, np.ndarray) or isinstance(poly, list):
+    #         poly = Polynomial(poly)
+    #     # For TargetPolynomial class, cast back to parent object.
+    #     elif isinstance(poly, Polynomial):
+    #         poly = Polynomial(poly.coef)
+    #     else:
+    #         raise ValueError(
+    #             f"Must provide coefficient list/array, or Polynomial object.")
+    # else:
+    #     if isinstance(poly, np.ndarray) or isinstance(poly, list):
+    #         poly = Chebyshev(poly)
+    #     elif isinstance(poly, Chebyshev):
+    #         # Currently, there should be no sub-class that we have to cast from in this branch.
+    #         pass
+    #     else:
+    #         raise ValueError(
+    #             f"Must provide Chebyshev coefficient list/array, or Chebyshev polynomial object.")
 
     if measurement is None:
         if signal_operator == "Wx":
